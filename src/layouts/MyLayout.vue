@@ -12,10 +12,8 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Reddit Demo App
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -121,8 +119,8 @@ export default {
 
   data() {
     return {
-      leftDrawerOpen: false
-    };
-  }
-};
+      leftDrawerOpen: false,
+    }
+  },
+}
 </script>
