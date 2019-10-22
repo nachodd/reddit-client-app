@@ -12,6 +12,14 @@ const getters = {
 }
 
 const mutations = {
+  TOGGLE_SIDEBAR: state => {
+    state.sidebarOpen = !state.sidebarOpen
+    if (state.sidebarOpen) {
+      localStorage.setItem("sidebarStatus", 1)
+    } else {
+      localStorage.setItem("sidebarStatus", 0)
+    }
+  },
   SET_SIDEBAR: (state, status) => {
     localStorage.setItem("sidebarStatus", +status)
     state.sidebarOpen = status
@@ -31,6 +39,9 @@ const mutations = {
 }
 
 const actions = {
+  toggleSidebar({ commit }) {
+    commit("TOGGLE_SIDEBAR")
+  },
   setSideBar({ commit }, sidebarStatus) {
     commit("SET_SIDEBAR", sidebarStatus)
   },
