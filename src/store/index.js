@@ -1,7 +1,8 @@
 import Vue from "vue"
 import Vuex from "vuex"
 
-import reddit from "./modules/reddit-store"
+import app from "./modules/app"
+import reddit from "./modules/reddit"
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ Vue.use(Vuex)
 export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
+      app,
       reddit,
     },
 

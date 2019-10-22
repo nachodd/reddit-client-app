@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+const path = require("path")
+const webpack = require("webpack")
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
@@ -71,6 +73,24 @@ module.exports = function(ctx) {
             formatter: require("eslint").CLIEngine.getFormatter("stylish"),
           },
         })
+
+        cfg.plugins.push(
+          new webpack.ProvidePlugin({
+            _: "lodash",
+          }),
+        )
+
+        cfg.resolve.alias = {
+          ...cfg.resolve.alias, // This adds the existing alias
+          // Add your own alias like this
+          api: path.resolve(__dirname, "./src/api"),
+          comp: path.resolve(__dirname, "./src/components"),
+          utils: path.resolve(__dirname, "./src/utils"),
+          router: path.resolve(__dirname, "./src/router"),
+          boot: path.resolve(__dirname, "./src/boot"),
+          store: path.resolve(__dirname, "./src/store"),
+          models: path.resolve(__dirname, "./src/models"),
+        }
       },
     },
 

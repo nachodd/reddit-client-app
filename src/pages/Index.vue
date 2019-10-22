@@ -7,5 +7,8 @@
 <script>
 export default {
   name: "PageIndex",
+  mounted() {
+    this.$store.dispatch("reddit/getPosts")
+  },
 }
 </script>
