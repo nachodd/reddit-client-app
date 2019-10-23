@@ -8,12 +8,14 @@
   >
     <q-scroll-area class="fit">
       <q-list class="menu-list text-unselectable">
-        <q-item :clickable="false" class="sidebar-section__header">
+        <q-item class="sidebar-section__header">
           <q-item-section class="text-center text-white">
             <q-item-label>
-              <h5 class="q-my-sm">
-                Reddit Top 50
-              </h5>
+              <router-link :to="{ name: 'index' }" class="title">
+                <h5 class="q-my-sm">
+                  Reddit Top 50
+                </h5>
+              </router-link>
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -134,4 +136,8 @@ export default {
   letter-spacing: 0.03333em
   color: #ffffff
   font-style: italic
+
+.title
+  text-decoration: none
+  color: white
 </style>
