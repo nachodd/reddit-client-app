@@ -18,6 +18,19 @@
               </router-link>
             </q-item-label>
           </q-item-section>
+          <q-item-section side class="text-center text-white">
+            <q-btn
+              dense
+              round
+              flat
+              icon="delete_forever"
+              @click.prevent="dismissAllPost"
+            >
+              <q-tooltip>
+                Dismiss All Posts
+              </q-tooltip>
+            </q-btn>
+          </q-item-section>
         </q-item>
         <div v-if="isPageLoading" class="q-my-lg">
           <div class="text-subtitle1 row justify-center q-mb-sm">
@@ -70,12 +83,13 @@
                   There's nothing here!
                   <span class="emoji">🎉</span>
                 </div>
-                <RedditListItem
-                  v-else
-                  v-for="post in dismissedPosts"
-                  :key="post.id"
-                  :post="post"
-                />
+                <transition-group v-else name="fadeLeft" tag="div">
+                  <RedditListItem
+                    v-for="post in dismissedPosts"
+                    :key="post.id"
+                    :post="post"
+                  />
+                </transition-group>
               </div>
             </q-expansion-item>
           </div>
@@ -86,7 +100,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex"
+import { mapActions, mapGetters, mapState } from "vuex"
 import RedditListItem from "comp/RedditListItem"
 
 export default {
@@ -110,6 +124,11 @@ export default {
         return this.sidebarOpenStore
       },
     },
+  },
+  methods: {
+    ...mapActions({
+      dismissAllPost: "reddit/dismissAllPost",
+    }),
   },
 }
 </script>

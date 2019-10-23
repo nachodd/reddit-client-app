@@ -34,8 +34,22 @@
         </div>
       </q-card-section>
       <q-separator />
-      <q-card-actions>
-        <q-btn flat @click.stop="dismissPost(post.id)">DISMISS</q-btn>
+      <q-card-actions align="around">
+        <q-btn
+          v-if="!post.isDismissed"
+          flat
+          @click.prevent="dismissPost(post.id)"
+          icon="delete"
+        >
+          DISMISS
+        </q-btn>
+        <q-btn v-else flat @click.prevent="recoverPost(post.id)" icon="undo">
+          RECOVER
+        </q-btn>
+
+        <q-btn disable flat :text-color="textReadColor" :icon="iconRead">
+          {{ textRead }}
+        </q-btn>
       </q-card-actions>
     </q-card>
   </q-item>
@@ -50,9 +64,21 @@ export default {
       required: true,
     },
   },
+  computed: {
+    textRead() {
+      return this.post.read ? "READ" : "UNREAD"
+    },
+    textReadColor() {
+      return this.post.read ? "green-8" : "red"
+    },
+    iconRead() {
+      return this.post.read ? "check" : ""
+    },
+  },
   methods: {
     ...mapActions({
       dismissPost: "reddit/dismissPost",
+      recoverPost: "reddit/recoverPost",
     }),
   },
 }

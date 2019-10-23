@@ -1,4 +1,5 @@
 import timeAgo from "utils/timeAgo"
+import { date } from "quasar"
 
 export default class RedditPost {
   constructor(post = {}) {
@@ -10,6 +11,8 @@ export default class RedditPost {
     this.thumbnail = post.thumbnail === "default" ? null : post.thumbnail
     this.read = post.read || false
     this.dismissed = post.dismissed || false
+    this.url = post.url
+    this.permalink = post.permalink
   }
 
   get timeAgo() {
@@ -17,5 +20,11 @@ export default class RedditPost {
   }
   get hasThumnail() {
     return this.thumbnail !== null
+  }
+  get isDismissed() {
+    return this.dismissed === true
+  }
+  get createdAtFormatted() {
+    return date.formatDate(this.created, "MM/DD HH:mm")
   }
 }

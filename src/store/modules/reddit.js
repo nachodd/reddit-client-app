@@ -26,6 +26,17 @@ const mutations = {
       post.dismissed = true
     }
   },
+  SET_POST_RECOVER: (state, id) => {
+    const post = _.find(state.posts, { id })
+    if (post) {
+      post.dismissed = false
+    }
+  },
+  SET_POST_DISMISSED_ALL: state => {
+    _.map(state.posts, post => {
+      post.dismissed = true
+    })
+  },
 }
 const actions = {
   getPosts({ commit }, limit = 50) {
@@ -42,9 +53,27 @@ const actions = {
         commit("app/LOADING_DEC", null, { root: true })
       })
   },
+  readPost({ commit }, id) {
+    return new Promise(resolve => {
+      commit("SET_POST_READ", id)
+      resolve()
+    })
+  },
   dismissPost({ commit }, id) {
     return new Promise(resolve => {
       commit("SET_POST_DISMISSED", id)
+      resolve()
+    })
+  },
+  recoverPost({ commit }, id) {
+    return new Promise(resolve => {
+      commit("SET_POST_RECOVER", id)
+      resolve()
+    })
+  },
+  dismissAllPost({ commit }) {
+    return new Promise(resolve => {
+      commit("SET_POST_DISMISSED_ALL")
       resolve()
     })
   },
