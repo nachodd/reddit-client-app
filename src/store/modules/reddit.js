@@ -5,8 +5,10 @@ const state = {
   posts: [],
 }
 const getters = {
-  posts: state => state.posts,
   postById: state => id => _.find(state.posts, { id }),
+  unreadPosts: state => _.filter(state.posts, { read: false }),
+  readPosts: state => _.filter(state.posts, { read: true }),
+  postsCount: state => state.posts.length,
 }
 const mutations = {
   SET_POSTS: (state, posts) => {

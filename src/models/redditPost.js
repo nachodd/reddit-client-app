@@ -9,6 +9,7 @@ export default class RedditPost {
     this.commentsNumber = post.num_comments
     this.thumbnail = post.thumbnail
     this.read = post.read || false
+    this.dismissed = post.dismissed || false
   }
 
   get timeAgo() {
