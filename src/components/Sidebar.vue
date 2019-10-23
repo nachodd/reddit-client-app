@@ -7,9 +7,9 @@
     :width="450"
   >
     <q-scroll-area class="fit">
-      <q-list padding class="menu-list text-unselectable">
-        <q-item :clickable="false">
-          <q-item-section class="text-center">
+      <q-list class="menu-list text-unselectable">
+        <q-item :clickable="false" class="sidebar-section__header">
+          <q-item-section class="text-center text-white">
             <q-item-label>
               <h5 class="q-my-sm">
                 Reddit Top 50
@@ -26,7 +26,7 @@
           </div>
         </div>
         <template v-else>
-          <div v-if="postCount === 0" class="text-body1">
+          <div v-if="postsCount === 0" class="text-body1">
             Nothing to show
             <span class="emoji">🤷‍♂️</span>
           </div>
@@ -34,14 +34,20 @@
             <q-item-label class="sidebar-section__header">
               <div class="sidebar-section__title">ALL POSTS</div>
               <div class="sidebar-section__subtitle">
-                Total: {{ unreadPosts.length }}
+                Total: {{ allPosts.length }}
               </div>
             </q-item-label>
-            <div v-if="unreadPosts.length === 0" class="text-center">
+            <div v-if="allPosts.length === 0" class="text-center">
               There's nothing here!
               <span class="emoji">🎉</span>
             </div>
-            <RedditListItem v-else v-for="post in unreadPosts" :key="post.id" />
+            <transition-group v-else name="fadeLeft" tag="div">
+              <RedditListItem
+                v-for="post in allPosts"
+                :key="post.id"
+                :post="post"
+              />
+            </transition-group>
 
             <br />
 
@@ -50,22 +56,23 @@
             >
               <template v-slot:header>
                 <q-item-section>
-                  <div class="sidebar-section__title">READ</div>
+                  <div class="sidebar-section__title">DISMISSED</div>
                   <div class="sidebar-section__subtitle">
-                    Total: {{ readPosts.length }}
+                    Total: {{ dismissedPosts.length }}
                   </div>
                 </q-item-section>
               </template>
 
-              <div class="bg-white">
-                <div v-if="readPosts.length === 0" class="text-center">
+              <div class="bg-white q-pt-xs">
+                <div v-if="dismissedPosts.length === 0" class="text-center">
                   There's nothing here!
                   <span class="emoji">🎉</span>
                 </div>
                 <RedditListItem
                   v-else
-                  v-for="post in readPosts"
+                  v-for="post in dismissedPosts"
                   :key="post.id"
+                  :post="post"
                 />
               </div>
             </q-expansion-item>
@@ -89,8 +96,8 @@ export default {
     }),
     ...mapGetters({
       postsCount: "reddit/postsCount",
-      unreadPosts: "reddit/unreadPosts",
-      readPosts: "reddit/readPosts",
+      allPosts: "reddit/allPosts",
+      dismissedPosts: "reddit/dismissedPosts",
       isPageLoading: "app/isPageLoading",
     }),
     sidebarOpened: {

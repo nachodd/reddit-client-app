@@ -6,8 +6,8 @@ const state = {
 }
 const getters = {
   postById: state => id => _.find(state.posts, { id }),
-  unreadPosts: state => _.filter(state.posts, { read: false }),
-  readPosts: state => _.filter(state.posts, { read: true }),
+  allPosts: state => _.filter(state.posts, { dismissed: false }),
+  dismissedPosts: state => _.filter(state.posts, { dismissed: true }),
   postsCount: state => state.posts.length,
 }
 const mutations = {
@@ -18,6 +18,12 @@ const mutations = {
     const post = _.find(state.posts, { id })
     if (post) {
       post.read = true
+    }
+  },
+  SET_POST_DISMISSED: (state, id) => {
+    const post = _.find(state.posts, { id })
+    if (post) {
+      post.dismissed = true
     }
   },
 }
@@ -35,6 +41,12 @@ const actions = {
       .finally(() => {
         commit("app/LOADING_DEC", null, { root: true })
       })
+  },
+  dismissPost({ commit }, id) {
+    return new Promise(resolve => {
+      commit("SET_POST_DISMISSED", id)
+      resolve()
+    })
   },
 }
 
