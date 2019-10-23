@@ -12,7 +12,7 @@ export default class RedditPost {
     this.read = post.read || false
     this.dismissed = post.dismissed || false
     this.url = post.url
-    this.permalink = post.permalink
+    this.permalink = `https://reddit.com${post.permalink}`
   }
 
   get timeAgo() {

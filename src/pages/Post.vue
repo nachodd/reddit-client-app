@@ -17,6 +17,16 @@
         <q-icon name="comment" size="lg" />
         COMMENTS: {{ post.commentsNumber }}
       </div>
+      <div class="col-12 ellipsis">
+        <q-icon name="comment" size="lg" />
+        URL:
+        <a :href="post.url" target="_blank">{{ post.url }}</a>
+      </div>
+      <div class="col-12 ellipsis">
+        <q-icon name="comment" size="lg" />
+        ORIGINAL POST:
+        <a :href="post.permalink" target="_blank">{{ post.permalink }}</a>
+      </div>
     </div>
   </div>
 </template>
