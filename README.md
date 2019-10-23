@@ -1,6 +1,6 @@
 # Reddit Client App (reddit-client-app)
 
-Reddit top 50 demo app
+Reddit top 50 demo app. [Demo](https://reddit-client-app.nachodd.now.sh/)
 
 ## Install the dependencies
 ```bash
